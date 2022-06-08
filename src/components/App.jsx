@@ -4,7 +4,7 @@ import axios from 'axios';
 import Container from './Container/Container';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
-import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+// import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
 import Button from './Button/Button';
 // import Modal from './Modal/Modal';
 
