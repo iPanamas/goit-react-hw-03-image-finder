@@ -1,7 +1,9 @@
-const ImageGalleryItem = () => {
+import s from './ImageGalleryItem.module.css';
+
+const ImageGalleryItem = ({ webformatURL, tags }) => {
   return (
-    <li class="gallery-item">
-      <img src="" alt="" />
+    <li className={s.galleryItem}>
+      <img src={webformatURL} alt={tags} />
     </li>
   );
 };
