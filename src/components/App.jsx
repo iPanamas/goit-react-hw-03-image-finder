@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 // Components
 import Container from './Container/Container';
 import Searchbar from './Searchbar/Searchbar';
@@ -9,9 +8,7 @@ import Button from './Button/Button';
 // import Modal from './Modal/Modal';
 
 // API
-import api from './API/api';
-
-axios.defaults.baseURL = 'https://pixabay.com/api';
+import * as api from './API/api';
 
 export class App extends Component {
   state = {
@@ -30,7 +27,6 @@ export class App extends Component {
 
   render() {
     const { pictures } = this.state;
-    console.log(pictures);
     return (
       <>
         <Searchbar />
