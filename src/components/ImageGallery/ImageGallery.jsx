@@ -29,7 +29,7 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { pictures, status, error } = this.state;
+    const { pictures, status } = this.state;
 
     if (status === 'idle') {
       return <h1 className={s.title}>Enter category name</h1>;
