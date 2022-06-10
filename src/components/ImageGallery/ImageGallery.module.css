@@ -6,3 +6,11 @@
   margin-bottom: 5px;
 }
 
+.title {
+  font-size: 50px;
+    color: #A3D0C3;
+  text-align: center;
+  padding-top: 50px;
+  font-family: 'Kaushan Script';
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
