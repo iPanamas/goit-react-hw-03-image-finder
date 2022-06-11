@@ -11,21 +11,27 @@ import Button from './Button/Button';
 export class App extends Component {
   state = {
     category: '',
-    // page: 1,
+    imageCount: 1,
   };
 
   imageCategory = category => {
     this.setState({ category });
   };
 
+  nextPage = () => {
+    this.setState(prevState => ({
+      imageCount: prevState.imageCount + 1,
+    }));
+  };
+
   render() {
-    const { category } = this.state;
+    const { category, imageCount } = this.state;
     return (
       <>
         <Searchbar onSubmit={this.imageCategory} />
         <Container>
-          <ImageGallery category={category} />
-          {category && <Button />}
+          <ImageGallery category={category} imageCount={imageCount} />
+          {category && <Button nextPage={this.nextPage} />}
         </Container>
       </>
     );

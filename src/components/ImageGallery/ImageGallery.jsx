@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 
 class ImageGallery extends Component {
   state = {
-    pictures: null,
+    imageItems: [],
     error: null,
     isLoading: false,
     status: 'idle',
@@ -15,11 +15,18 @@ class ImageGallery extends Component {
     const prevCategory = prevProps.category;
     const newCategory = this.props.category;
 
-    if (prevCategory !== newCategory) {
+    const prevPage = prevProps.imageCount;
+    const nextPage = this.props.imageCount;
+
+    const { imageItems } = this.state;
+    if (prevCategory !== newCategory || prevPage !== nextPage) {
       try {
         this.setState({ status: 'pending' });
-        const pictures = await api.getPictures(newCategory);
-        this.setState({ pictures, status: 'resolved' });
+        const pictures = await api.getPictures(newCategory, nextPage);
+        this.setState({
+          imageItems: [...imageItems, ...pictures],
+          status: 'resolved',
+        });
       } catch (error) {
         this.setState({ error, status: 'rejected' });
       } finally {
@@ -29,7 +36,7 @@ class ImageGallery extends Component {
   }
 
   render() {
-    const { pictures, status } = this.state;
+    const { imageItems, status } = this.state;
 
     if (status === 'idle') {
       return <h1 className={s.title}>Enter category name</h1>;
@@ -45,7 +52,7 @@ class ImageGallery extends Component {
     if (status === 'resolved') {
       return (
         <ul className={s.gallery}>
-          {pictures.map(({ id, webformatURL, tags }) => (
+          {imageItems.map(({ id, webformatURL, tags }) => (
             <ImageGalleryItem
               key={id}
               webformatURL={webformatURL}

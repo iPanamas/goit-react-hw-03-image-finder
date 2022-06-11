@@ -3,24 +3,24 @@ import s from './Searchbar.module.css';
 
 class Searchbar extends Component {
   state = {
-    category: '',
+    inputValue: '',
   };
 
   handleChange = event => {
-    this.setState({ category: event.currentTarget.value.toLowerCase() });
+    this.setState({ inputValue: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
-    const { category } = this.state;
+    const { inputValue } = this.state;
     event.preventDefault();
 
-    if (category.trim() === '') {
+    if (inputValue.trim() === '') {
       return alert('Введите название категории');
     }
 
-    this.props.onSubmit(category);
+    this.props.onSubmit(inputValue);
 
-    this.setState({ category: '' });
+    this.setState({ inputValue: '' });
   };
 
   render() {
