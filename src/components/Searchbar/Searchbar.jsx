@@ -1,26 +1,29 @@
 import React, { Component } from 'react';
 import s from './Searchbar.module.css';
 
+// Toaster
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 class Searchbar extends Component {
   state = {
-    inputValue: '',
+    category: '',
   };
 
   handleChange = event => {
-    this.setState({ inputValue: event.currentTarget.value.toLowerCase() });
+    this.setState({ category: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
-    const { inputValue } = this.state;
+    const { category } = this.state;
     event.preventDefault();
 
-    if (inputValue.trim() === '') {
-      return alert('Введите название категории');
+    if (category.trim() === '') {
+      return toast.error('Увэдыть назва катэгори');
     }
 
-    this.props.onSubmit(inputValue);
+    this.props.onSubmit(category);
 
-    this.setState({ inputValue: '' });
+    this.setState({ category: '' });
   };
 
   render() {
