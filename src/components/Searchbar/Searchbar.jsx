@@ -18,7 +18,7 @@ class Searchbar extends Component {
     event.preventDefault();
 
     if (category.trim() === '') {
-      return toast.error('Увэдыть назва катэгори');
+      return toast.info('Please enter category name');
     }
 
     this.props.onSubmit(category);

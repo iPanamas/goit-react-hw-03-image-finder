@@ -6,6 +6,11 @@ box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2p
   margin-right: 15px;
   margin-bottom: 15px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.galleryItem:hover {
+  scale: (1.2);
 }
 
   .galleryItem:nth-child(4n) {
