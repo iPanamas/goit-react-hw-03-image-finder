@@ -33,13 +33,14 @@ export class App extends Component {
 
   async componentDidUpdate(_, prevState) {
     const { imageCount, category } = this.state;
-    const prevCategory = prevState.category;
 
+    const prevCategory = prevState.category;
     const newCategory = category;
 
     if (prevCategory !== newCategory) {
       this.fetchData();
     }
+
     if (imageCount !== prevState.imageCount && imageCount !== 1) {
       this.fetchData();
     }
@@ -47,6 +48,7 @@ export class App extends Component {
 
   fetchData = async () => {
     const { category, imageCount } = this.state;
+
     try {
       this.setState({ status: 'pending' });
       const pictures = await api.getPictures(category, imageCount);
@@ -109,6 +111,7 @@ export class App extends Component {
           {status === 'idle' && <Title />}
           {status === 'rejected' && <Title />}
           {status === 'pending' && <Loader />}
+
           <ImageGallery imageItems={imageItems} onClick={openFullPicture} />
           {showModal && (
             <Modal onClose={toggleModal}>
@@ -119,10 +122,9 @@ export class App extends Component {
               />
             </Modal>
           )}
-
           {imageItems.length > 0 && <Button nextPage={nextPage} />}
         </Container>
-        <ToastContainer autoClose={3000} />;
+        <ToastContainer autoClose={3000} />
       </>
     );
   }
