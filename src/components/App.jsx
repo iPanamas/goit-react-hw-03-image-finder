@@ -37,7 +37,7 @@ export class App extends Component {
     const prevCategory = prevState.category;
     const newCategory = category;
 
-    if (prevCategory !== newCategory) {
+    if (newCategory !== prevCategory) {
       this.fetchData();
     }
 
@@ -51,12 +51,14 @@ export class App extends Component {
 
     try {
       this.setState({ status: 'pending' });
+
       const pictures = await api.getPictures(category, imageCount);
 
       if (pictures.length === 0) {
         this.setState({ status: 'idle' });
         return toast.warning(`${category} not found`);
       }
+
       this.setState(prevState => ({
         imageItems: [...prevState.imageItems, ...pictures],
         status: 'resolved',
@@ -71,7 +73,6 @@ export class App extends Component {
       this.setState({ error, status: 'rejected' });
       return toast.error(`Whoops something went wrong, please try again later`);
     } finally {
-      this.setState({ isLoading: false });
     }
   };
 
@@ -113,6 +114,7 @@ export class App extends Component {
           {status === 'pending' && <Loader />}
 
           <ImageGallery imageItems={imageItems} onClick={openFullPicture} />
+
           {showModal && (
             <Modal onClose={toggleModal}>
               <img
@@ -122,6 +124,7 @@ export class App extends Component {
               />
             </Modal>
           )}
+
           {imageItems.length > 0 && <Button nextPage={nextPage} />}
         </Container>
         <ToastContainer autoClose={3000} />
