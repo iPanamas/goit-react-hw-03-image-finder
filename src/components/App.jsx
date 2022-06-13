@@ -31,17 +31,23 @@ export class App extends Component {
     fullSizeImage: '',
   };
 
-  async componentDidUpdate(_, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const { imageCount, category } = this.state;
 
+    const prevCount = prevState.imageCount;
     const prevCategory = prevState.category;
     const newCategory = category;
 
-    if (newCategory !== prevCategory) {
+    if (prevCategory !== newCategory) {
+      this.setState({
+        status: 'pending',
+        imageItems: [],
+        imageCount: 1,
+      });
       this.fetchData();
     }
 
-    if (imageCount !== prevState.imageCount && imageCount !== 1) {
+    if (imageCount !== prevCount && imageCount !== 1) {
       this.fetchData();
     }
   }
@@ -50,8 +56,6 @@ export class App extends Component {
     const { category, imageCount } = this.state;
 
     try {
-      this.setState({ status: 'pending' });
-
       const pictures = await api.getPictures(category, imageCount);
 
       if (pictures.length === 0) {
@@ -77,7 +81,15 @@ export class App extends Component {
   };
 
   imageCategory = category => {
-    this.setState({ category, imageItems: [], imageCount: 1 });
+    if (this.state.category !== category) {
+      this.setState({
+        category: category,
+        imageCount: 1,
+      });
+    }
+    if (this.state.category === category) {
+      return toast.warning(`You already here "${category}"`);
+    }
   };
 
   nextPage = () => {
@@ -120,7 +132,7 @@ export class App extends Component {
               <img
                 className={s.modalPicture}
                 src={fullSizeImage}
-                alt="Stepan"
+                alt={fullSizeImage.tags}
               />
             </Modal>
           )}
