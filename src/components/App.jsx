@@ -7,15 +7,19 @@ import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
 import Title from './Title/Title';
+// Scroll
+import { animateScroll as Scroll } from 'react-scroll';
+
 // Toast
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // API
-import * as api from 'components/API/api';
+import * as api from 'API/api';
 
 // Styles
 import s from './Modal/Modal.module.css';
+
 export class App extends Component {
   state = {
     imageCount: 1,
@@ -55,6 +59,9 @@ export class App extends Component {
         imageItems: [...prevState.imageItems, ...pictures],
         status: 'resolved',
       }));
+
+      Scroll.scrollToBottom();
+
       if (imageCount === 1) {
         return toast.success(`Enjoy`);
       }
@@ -85,6 +92,10 @@ export class App extends Component {
   openFullPicture = event => {
     this.toggleModal();
     this.setState({ fullSizeImage: event });
+  };
+
+  scrollToBottom = () => {
+    Scroll.scrollToBottom();
   };
 
   render() {
